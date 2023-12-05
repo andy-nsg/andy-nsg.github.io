@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <form id="part-number-form">
+    <label for="part-number">Part Number:</label><br>
+    <input type="text" id="part-number" name="part-number"><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <div id="data"></div>
+
+  <script>
+    document.getElementById('part-number-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const partNumber = document.getElementById('part-number').value;
+      fetch(`http://localhost:3000/data?partNumber=${partNumber}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('data').innerText = JSON.stringify(data);
+        });
+    });
+  </script>
+</body>
+</html>
