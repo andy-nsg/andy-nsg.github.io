@@ -10,14 +10,21 @@
   <div id="data"></div>
 
   <script>
+    let data;
+
+    // Load the data from the JSON file when the page loads
+    fetch('NSGData.json')
+      .then(response => response.json())
+      .then(json => {
+        data = json;
+      });
+
+    // When the form is submitted, display the corresponding data
     document.getElementById('part-number-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const partNumber = document.getElementById('part-number').value;
-      fetch(`http://localhost:3000/data?partNumber=${partNumber}`)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('data').innerText = JSON.stringify(data);
-        });
+      const partData = data[partNumber];
+      document.getElementById('data').innerText = JSON.stringify(partData);
     });
   </script>
 </body>
